@@ -6,7 +6,11 @@ const commentController = {
         console.log(body);
         Comment.create(body)
         .then(({ _id }) => {
-            console.log(_id)
+            return Pizza.findOneAndUpdate(
+                { _id: params.pizzaId},
+                { $push: { comments: _id }},
+                { new: true }
+            );
         })
         .then(dbPizzaData => {
             if (!dbPizzaData) {
