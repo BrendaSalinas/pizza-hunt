@@ -17,7 +17,7 @@ const ReplySchema = new Schema(
         createdAt: {
             type: Date,
             default: Date.now,
-            get: createdAt => dateFormat(createdAtVal)
+            get: createdAtVal => dateFormat(createdAtVal)
         }
     },
     {
@@ -40,7 +40,7 @@ const CommentSchema = new Schema(
         default: Date.now,
         get: createdAtVal => dateFormat(createdAtVal)
     },
-    replies: [ReplySchema]
+    replies: [ReplySchema],
 },
 {
     toJSON: {
@@ -48,12 +48,12 @@ const CommentSchema = new Schema(
         getters: true
     },
     id: false
-}
-);
+});
 
 CommentSchema.virtual('replyCount').get(function() {
     return this.replies.length;
 });
+
 const Comment = model('Comment', CommentSchema);
 
 module.exports = Comment;
